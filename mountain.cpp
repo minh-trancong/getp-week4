@@ -74,7 +74,9 @@ double run(int size, int stride, double Mhz)
 
     test(elems, stride);
     cycles = fcyc2(test, elems, stride, 0);
-    return (size / stride) / (cycles / Mhz);
+    double bytesPerSec = (size / stride) / (cycles / Mhz);
+    double megaBytesPerSec = bytesPerSec / (1024 * 1024); // Convert to MB/s
+    return megaBytesPerSec;
 }
 
 int measure_cache_size(int start_size, int max_size)
