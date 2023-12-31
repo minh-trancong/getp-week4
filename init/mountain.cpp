@@ -10,8 +10,8 @@
 
 #define MINBYTES (1 << 10)
 #define MAXBYTES (1 << 27)
-#define MAXSTRIDE 6
-#define STRIDESTRIDE 1
+#define MAXSTRIDE 32
+#define STRIDESTRIDE 2
 #define MAXELEMS MAXBYTES/sizeof(int)
 
 int data[MAXELEMS];
