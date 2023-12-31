@@ -7,6 +7,7 @@
 #include <vector>
 #include "fcyc2.h"
 #include "clock.h"
+#include <sys/sysinfo.h>
 
 #define MINBYTES (1 << 10)
 #define MAXBYTES (1 << 27)
@@ -30,6 +31,22 @@ int main()
 
     init_data(data, MAXELEMS);
     Mhz = mhz(0);
+
+    // Get total physical memory (DRAM) size
+    struct sysinfo info;
+    if (sysinfo(&info) == 0) {
+        unsigned long long totalRam = info.totalram;
+        totalRam *= info.mem_unit; // Convert to bytes
+        std::cout << "DRAM size: " << totalRam / (1024.0 * 1024.0 * 1024.0) << " GB\n";
+    }
+
+    // Measure and print DRAM bandwidth
+    // Use a size larger than the cache sizes to ensure accessing DRAM
+    int size = /* size larger than cache sizes */;
+    int stride = 1; // Use a stride of 1 for sequential access
+    double dramBandwidth = run(size, stride, Mhz);
+    std::cout << "DRAM bandwidth: " << dramBandwidth << " MB/sec\n";
+
 
     double latency = measure_latency();
     std::cout << "Memory latency: " << latency << " seconds\n";
