@@ -87,5 +87,3 @@ double run(int size, int stride, double Mhz)
     return (size / stride) / (cycles / Mhz); /* convert cycles to MB/s */
 }
 /* $end mountainfuns */
-
-
