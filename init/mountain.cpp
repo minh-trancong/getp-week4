@@ -46,6 +46,9 @@ int main()
     // Number of threads to use
     int numThreads = std::thread::hardware_concurrency();
 
+    // Vector to store threads
+    std::vector<std::thread> threads;
+
     for (size = MAXBYTES; size >= MINBYTES; size >>= 1) {
         if (size > (1 << 20))
             std::cout << size / (1 << 20) << "m\t";
@@ -73,6 +76,9 @@ int main()
         for (auto& thread : threads) {
             thread.join();
         }
+
+        // Clear the threads vector for the next iteration
+        threads.clear();
     }
 
     // Measure and print the storage bandwidth
