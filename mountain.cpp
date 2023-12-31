@@ -43,7 +43,7 @@ int main()
             std::cout << size / 1024 << "k\t";
 
         for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
-            run(size, stride, Mhz);
+            std:cout << run(size, stride, Mhz) << "\t";
         }
         std::cout << "\n";
         std::cout << "Cache size: " << measure_cache_size(MINBYTES, size) << "\n";
@@ -77,17 +77,9 @@ double run(int size, int stride, double Mhz)
     } else {
         size_str = std::to_string(size / 1024) + "k";
     }
-    std::cout << "\nRunning test with size: " << size_str << ", stride: " << stride << ", Mhz: " << Mhz << "\n";
-
     cycles = fcyc2(test, elems, stride, 0);
-
-    std::cout << "Cycles: " << std::fixed << std::setprecision(0) << cycles << "\n";
-
     double bytesPerSec = ((double)size / stride) / (cycles / (Mhz * 1e6));
     double megaBytesPerSec = bytesPerSec / (1024 * 1024);
-
-    std::cout << "Bytes per second: " << bytesPerSec << ", MB/s: " << megaBytesPerSec << "\n";
-
     return megaBytesPerSec;
 }
 
