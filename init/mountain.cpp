@@ -61,9 +61,9 @@ int main()
         // Create and store threads
         std::vector<std::thread> threads;
         for (int t = 0; t < numThreads; ++t) {
-            threads.push_back(std::thread([&, t]() {
+            threads.push_back(std::thread([&, t]() { // Capture local variables by reference
                 int start = t * (elems / numThreads);
-                int end = (t == numThreads - 1) ? elems : start + (elems / numThreads);
+                int end = (t + 1) * (elems / numThreads);
                 for (int i = start; i < end; i += stride) {
                     test(i, stride);
                 }
