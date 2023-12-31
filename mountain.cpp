@@ -101,18 +101,18 @@ int measure_cache_size(int start_size, int max_size)
     return size / 2;
 }
 
-double measure_latency(int size)
+double measure_latency(int size, int stride)
 {
     auto start = std::chrono::high_resolution_clock::now();
 
     size = (size / sizeof(int)) * sizeof(int); // Round down to nearest multiple of sizeof(int)
 
-    for (int i = 0; i < size; i += sizeof(int)) {
-        data[i] = 1;
+    for (int i = 0; i < size; i += stride) {
+        data[i % size] = 1; // Use modulo to ensure we don't access out of bounds
     }
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end - start;
 
-    return diff.count() / size;
+    return diff.count() / (size / stride); // Divide by the number of accesses, not the size
 }
