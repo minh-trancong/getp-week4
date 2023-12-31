@@ -61,7 +61,7 @@ int main()
                     for (int i = start; i < end; i += stride) {
                         test(elems, stride);
                     }
-                }
+                }));
             }
 
             for (auto& thread : threads) {
