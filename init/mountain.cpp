@@ -33,24 +33,24 @@ int main()
     Mhz = mhz(0);
 
     // Get total physical memory (DRAM) size
-    struct sysinfo info;
-    if (sysinfo(&info) == 0) {
-        unsigned long long totalRam = info.totalram;
-        totalRam *= info.mem_unit; // Convert to bytes
+    struct sysinfo sysInfo;
+    if (sysinfo(&sysInfo) == 0) {
+        unsigned long long totalRam = sysInfo.totalram;
+        totalRam *= sysInfo.mem_unit; // Convert to bytes
         std::cout << "DRAM size: " << totalRam / (1024.0 * 1024.0 * 1024.0) << " GB\n";
     }
 
     // Measure and print DRAM bandwidth
     // Use a size larger than the cache sizes to ensure accessing DRAM
-    size = 128 * 1024 * 1024; // 128M in bytes
+    size = 256 * 1024 * 1024; // 256M in bytes
     stride = 1; // Use a stride of 1 for sequential access
     double dramBandwidth = run(size, stride, Mhz);
     std::cout << "DRAM bandwidth: " << dramBandwidth << " MB/sec\n";
 
     // Get total storage size
-    struct statvfs info;
-    if (statvfs("/", &info) == 0) {
-        unsigned long long totalStorage = info.f_blocks * info.f_bsize;
+    struct statvfs fsInfo;
+    if (statvfs("/", &fsInfo) == 0) {
+        unsigned long long totalStorage = fsInfo.f_blocks * fsInfo.f_bsize;
         std::cout << "Total storage size: " << totalStorage / (1024.0 * 1024.0 * 1024.0) << " GB\n";
     }
 
