@@ -14,7 +14,7 @@
 std::vector<int> data(MAXELEMS);
 
 void init_data(std::vector<int>& data, int n);
-int test(int elems, int stride);
+void test(int elems, int stride);
 double run(int size, int stride, double Mhz);
 int measure_cache_size(int start_size, int max_size);
 double measure_latency(int size);
@@ -58,12 +58,12 @@ void init_data(std::vector<int>& data, int n)
         data[i] = 1;
 }
 
-int test(int elems, int stride)
+void test(int elems, int stride)
 {
     int result = 0;
     for (int i = 0; i < elems; i += stride)
         result += data[i];
-    return result;
+    std::cout << result << " ";
 }
 
 
@@ -84,8 +84,7 @@ double run(int size, int stride, double Mhz)
     double resultInMB = (double)result / (1024 * 1024); // Convert result to MB
     cycles = fcyc2(test, elems, stride, 0);
 
-    std::cout << "\nCycles: " << cycles << "\n";
-    std::cout << "Result: " << resultInMB << " MB\n"; // Print result in MB
+    std::cout << "\nCycles: " << std::fixed << std::setprecision(0) << cycles << "\n";    std::cout << "Result: " << resultInMB << " MB\n"; // Print result in MB
 
     double bytesPerSec = ((double)size / stride) / (cycles / (Mhz * 1e6));
     double megaBytesPerSec = bytesPerSec / (1024 * 1024);
