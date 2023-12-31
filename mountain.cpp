@@ -47,7 +47,7 @@ int main()
         }
         std::cout << "\n";
         std::cout << "Cache size: " << measure_cache_size(MINBYTES, size) << "\n";
-        std::cout << "Latency: " << measure_latency(size) << "\n";
+//        std::cout << "Latency: " << measure_latency(size) << "\n";
     }
     return 0;
 }
