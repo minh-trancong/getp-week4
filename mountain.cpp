@@ -61,9 +61,9 @@ void init_data(std::vector<int>& data, int n)
 void test(int elems, int stride)
 {
     int result = 0;
-    for (int i = 0; i < elems; i += stride)
+    int i;
+    for (i = 0; i < elems; i += stride)
         result += data[i];
-    // Move this line out of the loop
     if (i >= elems - stride) {
         std::cout << result << "\n";
     }
