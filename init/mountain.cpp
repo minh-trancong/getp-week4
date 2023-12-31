@@ -51,6 +51,15 @@ int main()
             std::cout << run(size, stride, Mhz) << "\t";
         }
         std::cout << "\n";
+
+        // Print cache level information
+        if (size == (32 << 10)) {
+            std::cout << "Above line corresponds to L1d and L1i cache\n";
+        } else if (size == (4 << 20)) {
+            std::cout << "Above line corresponds to L2 cache\n";
+        } else if (size == (16 << 20)) {
+            std::cout << "Above line corresponds to L3 cache\n";
+        }
     }
 
     // Measure and print the storage bandwidth
