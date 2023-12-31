@@ -8,6 +8,7 @@
 #include "fcyc2.h"
 #include "clock.h"
 #include <sys/sysinfo.h>
+#include <sys/statvfs.h>
 
 #define MINBYTES (1 << 10)
 #define MAXBYTES (1 << 27)
@@ -42,7 +43,7 @@ int main()
 
     // Measure and print DRAM bandwidth
     // Use a size larger than the cache sizes to ensure accessing DRAM
-    size = 256 * 1024 * 1024; // 256M in bytes
+    size = 128 * 1024 * 1024; // 128M in bytes
     stride = 1; // Use a stride of 1 for sequential access
     double dramBandwidth = run(size, stride, Mhz);
     std::cout << "DRAM bandwidth: " << dramBandwidth << " MB/sec\n";
