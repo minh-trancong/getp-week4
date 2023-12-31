@@ -63,7 +63,10 @@ void test(int elems, int stride)
     int result = 0;
     for (int i = 0; i < elems; i += stride)
         result += data[i];
-    std::cout << result << "\n";
+    // Move this line out of the loop
+    if (i >= elems - stride) {
+        std::cout << result << "\n";
+    }
 }
 
 double run(int size, int stride, double Mhz)
@@ -78,7 +81,7 @@ double run(int size, int stride, double Mhz)
 
     std::cout << "Cycles: " << cycles << "\n";
 
-    double bytesPerSec = (size / stride) / (cycles / Mhz);
+    double bytesPerSec = ((double)size / stride) / (cycles / (Mhz * 1e6)); // Convert cycles to seconds and size to bytes
     double megaBytesPerSec = bytesPerSec / (1024 * 1024); // Convert to MB/s
 
     std::cout << "Bytes per second: " << bytesPerSec << ", MB/s: " << megaBytesPerSec << "\n";
