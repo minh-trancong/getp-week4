@@ -63,7 +63,7 @@ void test(int elems, int stride)
     int result = 0;
     for (int i = 0; i < elems; i += stride)
         result += data[i];
-    std::cout<< result << " ";
+    std::courout<< result << " ";
 }
 
 
@@ -113,6 +113,8 @@ int measure_cache_size(int start_size, int max_size)
 double measure_latency(int size)
 {
     auto start = std::chrono::high_resolution_clock::now();
+
+    size = (size / sizeof(int)) * sizeof(int); // Round down to nearest multiple of sizeof(int)
 
     for (int i = 0; i < size; i += sizeof(int)) {
         data[i] = 1;
