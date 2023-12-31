@@ -60,7 +60,8 @@ int main()
         }
         std::cout << "\n";
 
-
+        // Calculate the number of elements
+        int elems = size / sizeof(int);
         // Create and store threads
         for (int t = 0; t < numThreads; ++t) {
             threads.push_back(std::thread([&, elems, stride]() { // Capture elems and stride by value
