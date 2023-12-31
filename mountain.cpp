@@ -46,8 +46,12 @@ int main()
             std::cout << run(size, stride, Mhz) << "\t";
         }
         std::cout << "\n";
-        std::cout << "Cache size: " << measure_cache_size(MINBYTES, size) << "\n";
-//        std::cout << "Latency: " << measure_latency(size) << "\n";
+        int cache_size = measure_cache_size(MINBYTES, size);
+        if (cache_size >= (1 << 20)) {
+            std::cout << "Cache size: " << cache_size / (1 << 20) << " MB\n";
+        } else {
+            std::cout << "Cache size: " << cache_size / 1024 << " KB\n";
+    }//        std::cout << "Latency: " << measure_latency(size) << "\n";
     }
     return 0;
 }
