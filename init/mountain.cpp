@@ -42,11 +42,10 @@ int main()
 
     // Measure and print DRAM bandwidth
     // Use a size larger than the cache sizes to ensure accessing DRAM
-    int size = /* size larger than cache sizes */;
-    int stride = 1; // Use a stride of 1 for sequential access
+    size = 256 * 1024 * 1024; // 256M in bytes
+    stride = 1; // Use a stride of 1 for sequential access
     double dramBandwidth = run(size, stride, Mhz);
     std::cout << "DRAM bandwidth: " << dramBandwidth << " MB/sec\n";
-
 
     double latency = measure_latency();
     std::cout << "Memory latency: " << latency << " seconds\n";
