@@ -43,7 +43,7 @@ int main()
             std::cout << size / 1024 << "k\t";
 
         for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
-            std:cout << run(size, stride, Mhz) << "\t";
+            std::cout << run(size, stride, Mhz) << "\t";
         }
         std::cout << "\n";
         std::cout << "Cache size: " << measure_cache_size(MINBYTES, size) << "\n";
