@@ -61,12 +61,9 @@ void init_data(std::vector<int>& data, int n)
 void test(int elems, int stride)
 {
     int result = 0;
-    int i;
-    for (i = 0; i < elems; i += stride)
+    for (int i = 0; i < elems; i += stride)
         result += data[i];
-    if (i >= elems - stride) {
-        std::cout << result << "\n";
-    }
+    std::cout << result << "\n";
 }
 
 double run(int size, int stride, double Mhz)
