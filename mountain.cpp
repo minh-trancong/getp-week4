@@ -3,6 +3,7 @@
 #include<chrono>
 #include "fcyc2.h"
 #include "clock.h"
+#include <iomanip>
 
 #define MINBYTES (1 << 10)
 #define MAXBYTES (1 << 27)
@@ -32,17 +33,17 @@ int main()
 
     std::cout << " ";
     for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE)
-        std::cout << "s" << stride << " ";
+        std::cout << std::setw(5) << "s" << stride;  // Set width to 5
     std::cout << "\n";
 
     for (size = MAXBYTES; size >= MINBYTES; size >>= 1) {
         if (size > (1 << 20))
-            std::cout << size / (1 << 20) << "m ";
+            std::cout << std::setw(5) << size / (1 << 20) << "m ";  // Set width to 5
         else
-            std::cout << size / 1024 << "k ";
+            std::cout << std::setw(5) << size / 1024 << "k ";  // Set width to 5
 
         for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
-            std::cout << run(size, stride, Mhz) << " ";
+            std::cout << std::setw(10) << run(size, stride, Mhz);  // Set width to 10
         }
         if (stride > MAXSTRIDE) {
             std::cout << "\n";
