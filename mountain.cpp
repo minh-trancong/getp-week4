@@ -75,7 +75,7 @@ double run(int size, int stride, double Mhz)
     cycles = fcyc2(test, elems, stride, 0);
     double bytesPerSec = (size / stride) / (cycles / Mhz);
     double megaBytesPerSec = bytesPerSec / (1024 * 1024); // Convert to MB/s
-    std::cout << "MB/s:: " std::setprecision(3) << megaBytesPerSec << "\n";
+    std::cout << "MB/s:: " << std::setprecision(3) << megaBytesPerSec << "\n";
     return megaBytesPerSec;
 }
 
