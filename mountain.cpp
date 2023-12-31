@@ -45,9 +45,7 @@ int main()
         for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
             std::cout << std::setw(10) << run(size, stride, Mhz);  // Set width to 10
         }
-        if (stride > MAXSTRIDE) {
-            std::cout << "\n";
-        }
+        std::cout << "\n";
         std::cout << "Cache size: " << measure_cache_size(MINBYTES, size) << "\n";
         std::cout << "Latency: " << measure_latency(size) << "\n";
     }
