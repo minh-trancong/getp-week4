@@ -1,3 +1,7 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Find number of cycles used by function that takes 2 arguments */
 
 /* Function to be tested takes two integer arguments */
@@ -39,3 +43,6 @@ double fcyc2_full_tod(test_funct f, int param1, int param2, int clear_cache,
 		     int k, double epsilon, int maxsamples, int compensate);
 
 double fcyc2_tod(test_funct f, int param1, int param2, int clear_cache);
+#ifdef __cplusplus
+}
+#endif

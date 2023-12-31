@@ -22,12 +22,3 @@ void start_comp_counter();
 
 double get_comp_counter();
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Existing content of clock.h goes here */
-
-#ifdef __cplusplus
-}
-#endif
