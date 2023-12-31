@@ -63,7 +63,7 @@ void test(int elems, int stride)
     int result = 0;
     for (int i = 0; i < elems; i += stride)
         result += data[i];
-    std::cout << result << "\n";
+    std::cout << result << " ";
 }
 
 double run(int size, int stride, double Mhz)
