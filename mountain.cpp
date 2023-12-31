@@ -80,7 +80,6 @@ double run(int size, int stride, double Mhz)
     }
     std::cout << "\nRunning test with size: " << size_str << ", stride: " << stride << ", Mhz: " << Mhz << "\n";
 
-    int result = test(elems, stride);
     double resultInMB = (double)result / (1024 * 1024); // Convert result to MB
     cycles = fcyc2(test, elems, stride, 0);
 
