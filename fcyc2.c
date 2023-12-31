@@ -21,12 +21,12 @@ static void init_sampler(int k, int maxsamples)
 {
   if (values)
     free(values);
-  values = calloc(k, sizeof(double));
+  values = (double*) calloc(k, sizeof(double));
 #if KEEP_SAMPLES
   if (samples)
     free(samples);
   /* Allocate extra for wraparound analysis */
-  samples = calloc(maxsamples+k, sizeof(double));
+  samples = (double*) calloc(maxsamples+k, sizeof(double));
 #endif
   samplecount = 0;
 }
