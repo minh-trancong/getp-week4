@@ -9,8 +9,7 @@
 #define MAXBYTES (1 << 27)
 #define MAXSTRIDE 32
 #define STRIDESTRIDE 2
-//#define MAXELEMS MAXBYTES/sizeof(int)
-#define MAXELEMS ((1 << 27) / sizeof(long)) / 2
+#define MAXELEMS MAXBYTES/sizeof(int)
 
 std::vector<int> data(MAXELEMS);
 
