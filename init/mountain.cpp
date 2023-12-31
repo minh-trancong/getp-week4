@@ -52,26 +52,25 @@ int main()
             std::cout << size / 1024 << "k\t";
 
         int elems = size / sizeof(int);
-        for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
-            std::cout << run(size, stride, Mhz) << "\t";
-        }
-        std::cout << "\n";
+        if (numThreads > 1) {
+            // Use multithreading if the system supports it
+            for (int t = 0; t < numThreads; ++t) {
+                threads.push_back(std::thread([&, elems, stride, t]() {
+                [...]
+            }
 
-        for (int t = 0; t < numThreads; ++t) {
-            threads.push_back(std::thread([&, elems, stride, t]() {
-                int start = t * (elems / numThreads);
-                int end = (t + 1) * (elems / numThreads);
-                for (int i = start; i < end; i += stride) {
-                    test(elems, stride);
-                }
-            }));
-        }
+            for (auto& thread : threads) {
+                thread.join();
+            }
 
-        for (auto& thread : threads) {
-            thread.join();
+            threads.clear();
+        } else {
+            // Use single-threaded version otherwise
+            for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
+                std::cout << run(size, stride, Mhz) << "\t";
+            }
+            std::cout << "\n";
         }
-
-        threads.clear();
     }
 
     double storageBandwidth = measure_storage(MAXBYTES);
