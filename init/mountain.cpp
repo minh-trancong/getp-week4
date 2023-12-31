@@ -3,6 +3,8 @@
 #include "fcyc2.h" /* K-best measurement timing routines */
 #include "clock.h" /* routines to access the cycle counter */
 #include <iostream>
+#include <fstream>
+#include <chrono>
 
 #define MINBYTES (1 << 10)  /* Working set size ranges from 1 KB */
 #define MAXBYTES (1 << 27)  /* ... up to 128 MB */
@@ -44,6 +46,11 @@ int main()
         }
         std::cout << "\n";
     }
+
+    // Measure and print the storage bandwidth
+    double storageBandwidth = measure_storage(MAXBYTES);
+    std::cout << "Storage bandwidth: " << storageBandwidth << " MB/sec\n";
+
     return 0;
 }
 
@@ -71,4 +78,33 @@ double run(int size, int stride, double Mhz)
     test(elems, stride);                     /* warm up the cache */
     cycles = fcyc2(test, elems, stride, 0);  /* call test(elems,stride) */
     return (size / stride) / (cycles / Mhz); /* convert cycles to MB/s */
+}
+
+// Function to measure latency of memory access
+double measure_latency() {
+    auto start = std::chrono::high_resolution_clock::now();
+    volatile int temp = data[0]; // Access the first element of the array
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    return diff.count(); // Return time in seconds
+}
+
+// Function to measure storage bandwidth
+double measure_storage(int size) {
+    char* buffer = new char[size];
+    std::fill(buffer, buffer + size, 'a'); // Fill buffer with some data
+
+    auto start = std::chrono::high_resolution_clock::now();
+    std::ofstream ofs("tempfile", std::ios::binary);
+    ofs.write(buffer, size); // Write data to file
+    ofs.close();
+    auto end = std::chrono::high_resolution_clock::now();
+
+    delete[] buffer;
+    std::remove("tempfile"); // Delete the temporary file
+
+    std::chrono::duration<double> diff = end - start;
+    double seconds = diff.count();
+    double megabytes = size / (1024.0 * 1024.0); // Convert size to megabytes
+    return megabytes / seconds; // Return bandwidth in MB/sec
 }
