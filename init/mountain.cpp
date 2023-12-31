@@ -17,6 +17,8 @@ int data[MAXELEMS];         /* The array we'll be traversing */
 void init_data(int *data, int n);
 void test(int elems, int stride);
 double run(int size, int stride, double Mhz);
+double measure_latency();
+double measure_storage(int size);
 
 int main()
 {
@@ -26,6 +28,10 @@ int main()
 
     init_data(data, MAXELEMS); /* Initialize each element in data to 1 */
     Mhz = mhz(0);              /* Estimate the clock frequency */
+
+    // Measure and print the memory latency
+    double latency = measure_latency();
+    std::cout << "Memory latency: " << latency << " seconds\n";
 
     std::cout << "Clock frequency is approx. " << Mhz << " MHz\n";
     std::cout << "Memory mountain (MB/sec)\n";
