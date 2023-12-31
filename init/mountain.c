@@ -66,14 +66,12 @@ void init_data(int *data, int n)
 }
 
 /* $begin mountainfuns */
-void test(int elems, int stride) /* The test function */
+void test(int elems, int stride)
 {
-    int i, result = 0; 
-    volatile int sink; 
-
-    for (i = 0; i < elems; i += stride)
-	result += data[i];
-    sink = result; /* So compiler doesn't optimize away the loop */
+    volatile int sink;
+    for (int i = 0; i < elems; i += stride)
+        sink = data[i];
+    (void)sink;
 }
 
 /* Run test(elems, stride) and return read throughput (MB/s) */
