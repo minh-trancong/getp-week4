@@ -63,7 +63,7 @@ void test(int elems, int stride)
     int result = 0;
     for (int i = 0; i < elems; i += stride)
         result += data[i];
-    std::out<< result << " ";
+    std::cout<< result << " ";
 }
 
 
