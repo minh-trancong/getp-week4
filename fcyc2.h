@@ -39,3 +39,13 @@ double fcyc2_full_tod(test_funct f, int param1, int param2, int clear_cache,
 		     int k, double epsilon, int maxsamples, int compensate);
 
 double fcyc2_tod(test_funct f, int param1, int param2, int clear_cache);
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Existing content of fcyc2.h goes here */
+
+#ifdef __cplusplus
+}
+#endif
