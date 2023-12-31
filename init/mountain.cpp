@@ -64,9 +64,9 @@ int main()
         int elems = size / sizeof(int);
         // Create and store threads
         for (int t = 0; t < numThreads; ++t) {
-            threads.push_back(std::thread([&, elems, stride]() { // Capture elems and stride by value
+            threads.push_back(std::thread([&, elems, stride, t]() { // Capture elems, stride, and t by value
                 int start = t * (elems / numThreads);
-                int end = (t + 1) * (elems / numThreads);
+                int end = (t + 1 == numThreads) ? elems : (t + 1) * (elems / numThreads); // Make sure the last thread covers the rest of the array
                 for (int i = start; i < end; i += stride) {
                     test(i, stride);
                 }
