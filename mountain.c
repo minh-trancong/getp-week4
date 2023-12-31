@@ -47,10 +47,12 @@ int main()
 	    printf("%dk ", size / 1024);
 
 /* $begin mountainmain */
-	for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
-	    printf("%.0f ", run(size, stride, Mhz));
-	}
-	printf("\n");
+for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
+    printf("%.0f ", run(size, stride, Mhz));
+}
+if (stride > MAXSTRIDE) {
+    printf("\n");
+}
     }
     exit(0);
 }
