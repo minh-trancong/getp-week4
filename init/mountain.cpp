@@ -47,6 +47,16 @@ int main()
     double dramBandwidth = run(size, stride, Mhz);
     std::cout << "DRAM bandwidth: " << dramBandwidth << " MB/sec\n";
 
+    // Get total storage size
+    struct statvfs info;
+    if (statvfs("/", &info) == 0) {
+        unsigned long long totalStorage = info.f_blocks * info.f_bsize;
+        std::cout << "Total storage size: " << totalStorage / (1024.0 * 1024.0 * 1024.0) << " GB\n";
+    }
+
+    double storageBandwidth = measure_storage(MAXBYTES);
+    std::cout << "Storage bandwidth: " << storageBandwidth << " MB/sec\n";
+
     double latency = measure_latency();
     std::cout << "Memory latency: " << latency << " seconds\n";
 
@@ -93,10 +103,6 @@ int main()
             std::cout << "\n";
         }
     }
-
-    double storageBandwidth = measure_storage(MAXBYTES);
-    std::cout << "Storage bandwidth: " << storageBandwidth << " MB/sec\n";
-
     return 0;
 }
 
