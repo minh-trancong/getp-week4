@@ -41,6 +41,9 @@ int main()
         std::cout << "s" << stride << "\t";
     std::cout << "\n";
 
+    // Number of threads to use
+    int numThreads = std::thread::hardware_concurrency();
+
     for (size = MAXBYTES; size >= MINBYTES; size >>= 1) {
         if (size > (1 << 20))
             std::cout << size / (1 << 20) << "m\t";
@@ -52,13 +55,22 @@ int main()
         }
         std::cout << "\n";
 
-        // Print cache level information
-        if (size == (32 << 10)) {
-            std::cout << "Above line corresponds to L1d and L1i cache\n";
-        } else if (size == (4 << 20)) {
-            std::cout << "Above line corresponds to L2 cache\n";
-        } else if (size == (16 << 20)) {
-            std::cout << "Above line corresponds to L3 cache\n";
+
+        // Create and store threads
+        std::vector<std::thread> threads;
+        for (int t = 0; t < numThreads; ++t) {
+            threads.push_back(std::thread([&, t]() {
+                int start = t * (elems / numThreads);
+                int end = (t == numThreads - 1) ? elems : start + (elems / numThreads);
+                for (int i = start; i < end; i += stride) {
+                    test(i, stride);
+                }
+            }));
+        }
+
+        // Join threads
+        for (auto& thread : threads) {
+            thread.join();
         }
     }
 
