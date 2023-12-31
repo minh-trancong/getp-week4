@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
+#include <thread>
+#include <vector>
 
 #define MINBYTES (1 << 10)  /* Working set size ranges from 1 KB */
 #define MAXBYTES (1 << 27)  /* ... up to 128 MB */
