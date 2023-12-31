@@ -90,6 +90,7 @@ double run(int size, int stride, double Mhz)
 double measure_latency() {
     auto start = std::chrono::high_resolution_clock::now();
     volatile int temp = data[0]; // Access the first element of the array
+    (void)temp; // Add this line
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end - start;
     return diff.count(); // Return time in seconds
