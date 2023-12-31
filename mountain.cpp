@@ -23,29 +23,32 @@ int main()
 {
     int size;
     int stride;
-    double Mhz = 3.2e9; // replace with your CPU clock frequency
+    double Mhz;
 
-    // Print the header
-    printf("\t");
-    for (stride = 1; stride <= MAXSTRIDE; stride *= STRIDESTRIDE)
-        printf("s%d\t", stride);
-    printf("\n");
+    init_data(data, MAXELEMS);
+    Mhz = mhz(0);
+
+    std::cout << "Clock frequency is approx. " << Mhz << " MHz\n";
+    std::cout << "Memory mountain (MB/sec)\n";
+
+    std::cout << "\t";
+    for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE)
+        std::cout << "s" << stride << "\t";
+    std::cout << "\n";
 
     for (size = MAXBYTES; size >= MINBYTES; size >>= 1) {
-        // Print the size
         if (size > (1 << 20))
-            printf("%dm\t", size / (1 << 20));
+            std::cout << size / (1 << 20) << "m\t";
         else
-            printf("%dk\t", size / 1024);
+            std::cout << size / 1024 << "k\t";
 
-        // Print the bandwidth for each stride
-        for (stride = 1; stride <= MAXSTRIDE; stride *= STRIDESTRIDE) {
-            double mbps = run(size * sizeof(long), stride) / 1e6;
-            printf("%f\t", mbps);
+        for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
+            std::cout << run(size, stride, Mhz) << "\t";
         }
-        printf("\n");
+        std::cout << "\n";
+        std::cout << "Cache size: " << measure_cache_size(MINBYTES, size) << "\n";
+        std::cout << "Latency: " << measure_latency(size) << "\n";
     }
-
     return 0;
 }
 
