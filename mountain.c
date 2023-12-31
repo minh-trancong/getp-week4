@@ -32,9 +32,9 @@ int main()
     printf("Clock frequency is approx. %.1f MHz\n", Mhz);
     printf("Memory mountain (MB/sec)\n");
 
-    printf("\t");
+    printf(" ");
     for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE)
-	printf("s%d\t", stride);
+	printf("s%d ", stride);
     printf("\n");
 
  /* $begin mountainmain */
@@ -42,13 +42,13 @@ int main()
 /* $end mountainmain */
 	/* Not shown in the text */
 	if (size > (1 << 20))
-	    printf("%dm\t", size / (1 << 20));
+	    printf("%dm ", size / (1 << 20));
 	else
-	    printf("%dk\t", size / 1024);
+	    printf("%dk ", size / 1024);
 
 /* $begin mountainmain */
 	for (stride = 1; stride <= MAXSTRIDE; stride += STRIDESTRIDE) {
-	    printf("%.0f\t", run(size, stride, Mhz));
+	    printf("%.0f ", run(size, stride, Mhz));
 	}
 	printf("\n");
     }
