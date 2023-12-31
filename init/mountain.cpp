@@ -56,7 +56,12 @@ int main()
             // Use multithreading if the system supports it
             for (int t = 0; t < numThreads; ++t) {
                 threads.push_back(std::thread([&, elems, stride, t]() {
-                [...]
+                    int start = t * (elems / numThreads);
+                    int end = (t + 1) * (elems / numThreads);
+                    for (int i = start; i < end; i += stride) {
+                        test(elems, stride);
+                    }
+                }
             }
 
             for (auto& thread : threads) {
