@@ -58,28 +58,36 @@ void init_data(std::vector<int>& data, int n)
         data[i] = 1;
 }
 
-void test(int elems, int stride)
+int test(int elems, int stride)
 {
     int result = 0;
     for (int i = 0; i < elems; i += stride)
         result += data[i];
-    std::cout << result << " ";
+    return result;
 }
+
 
 double run(int size, int stride, double Mhz)
 {
     double cycles;
     int elems = size / sizeof(int);
 
-    std::cout << "Running test with size: " << size << ", stride: " << stride << ", Mhz: " << Mhz << "\n";
+    std::string size_str;
+    if (size >= (1 << 20)) {
+        size_str = std::to_string(size / (1 << 20)) + "m";
+    } else {
+        size_str = std::to_string(size / 1024) + "k";
+    }
+    std::cout << "\nRunning test with size: " << size_str << ", stride: " << stride << ", Mhz: " << Mhz << "\n";
 
-    test(elems, stride);
+    int result = test(elems, stride);
     cycles = fcyc2(test, elems, stride, 0);
 
-    std::cout << "Cycles: " << cycles << "\n";
+    std::cout << "\nCycles: " << cycles << "\n";
+    std::cout << "Result: " << result << "\n";
 
-    double bytesPerSec = ((double)size / stride) / (cycles / (Mhz * 1e6)); // Convert cycles to seconds and size to bytes
-    double megaBytesPerSec = bytesPerSec / (1024 * 1024); // Convert to MB/s
+    double bytesPerSec = ((double)size / stride) / (cycles / (Mhz * 1e6));
+    double megaBytesPerSec = bytesPerSec / (1024 * 1024);
 
     std::cout << "Bytes per second: " << bytesPerSec << ", MB/s: " << megaBytesPerSec << "\n";
 
